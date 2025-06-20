@@ -4,9 +4,12 @@ Built with Express.js, MongoDB, and React — featuring a clean, responsive UI a
 
 🚀 Features
 Add, view, edit, and delete books in your library
+
 Book fields: title, author, genre, publishedYear, rating
 Beautiful, responsive frontend with React and Tailwind CSS
+
 RESTful API powered by Express.js and MongoDB
+
 Easy integration and testing with Postman and curl
 
 API Documentation:
@@ -14,6 +17,7 @@ https://documenter.getpostman.com/view/40638998/2sB2xBCpWD
 
 🛠️ Tech Stack
 Backend: Node.js, Express.js, MongoDB, Mongoose
+
 Frontend: React, Tailwind CSS, Axios
 
 📝 Getting Started
