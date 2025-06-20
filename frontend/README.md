@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+📚 Book Library API
+A modern, full-stack application for managing your personal digital library.
+Built with Express.js, MongoDB, and React — featuring a clean, responsive UI and robust RESTful API.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+🚀 Features
+Add, view, edit, and delete books in your library
+Book fields: title, author, genre, publishedYear, rating
+Beautiful, responsive frontend with React and Tailwind CSS
+RESTful API powered by Express.js and MongoDB
+Easy integration and testing with Postman and curl
 
-## Available Scripts
+API Documentation:
+https://documenter.getpostman.com/view/40638998/2sB2xBCpWD
 
-In the project directory, you can run:
+🛠️ Tech Stack
+Backend: Node.js, Express.js, MongoDB, Mongoose
+Frontend: React, Tailwind CSS, Axios
 
-### `npm start`
+📝 Getting Started
+1. Clone the Repository
+bash
+git clone <your-repo-url>
+cd book-library-api
+2. Backend Setup
+bash
+cd backend
+npm install
+Create a .env file in the backend directory:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+text
+MONGO_URI=your_mongodb_connection_string
+PORT=4000
+Start the backend server:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+bash
+npm start
+The server runs at http://localhost:4000.
 
-### `npm test`
+3. Frontend Setup
+bash
+cd ../frontend
+npm install
+npm start
+The React app runs at http://localhost:3000.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+📖 API Documentation
+Full API documentation is available via Postman:
+👉 View the API Docs on Postman
 
-### `npm run build`
+🔗 API Endpoints
+Method	Endpoint	Description
+GET	/api/books	Get all books
+POST	/api/books	Add a new book
+PUT	/api/books/:id	Edit book info
+DELETE	/api/books/:id	Remove a book
+Sample Book JSON
+json
+{
+  "title": "Atomic Habits",
+  "author": "James Clear",
+  "genre": "Self-help",
+  "publishedYear": 2018,
+  "rating": 4.6
+}
+🧪 Testing the API with curl
+Get all books
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+bash
+curl http://localhost:4000/api/books
+Add a new book
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+bash
+curl -X POST http://localhost:4000/api/books \
+-H "Content-Type: application/json" \
+-d '{"title":"Atomic Habits","author":"James Clear","genre":"Self-help","publishedYear":2018,"rating":4.6}'
+Edit a book
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+bash
+curl -X PUT http://localhost:4000/api/books/<book_id> \
+-H "Content-Type: application/json" \
+-d '{"title":"Atomic Habits (Updated)","author":"James Clear","genre":"Self-help","publishedYear":2018,"rating":4.8}'
+Delete a book
 
-### `npm run eject`
+bash
+curl -X DELETE http://localhost:4000/api/books/<book_id>
+🖼️ Screenshots
+Add screenshots of your app UI here if desired.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+📄 License
+MIT
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+API Documentation:
+https://documenter.getpostman.com/view/40638998/2sB2xBCpWD
