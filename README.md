@@ -119,7 +119,4 @@ Add screenshots of your app UI here if desired.
 📄 License
 MIT
 
-📑 API Documentation
-API Documentation on Postman
-
-Happy reading and coding!
+📑 API Documentation :- https://documenter.getpostman.com/view/40638998/2sB2xBCpWD
