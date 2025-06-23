@@ -11,16 +11,39 @@ Beautiful, responsive frontend with React and Tailwind CSS
 
 RESTful API powered by Express.js and MongoDB
 
-Easy integration and testing with Postman and curl
-
-API Documentation:
-https://documenter.getpostman.com/view/40638998/2sB2xBCpWD
-
+Easy integration and testing with Postman, curl, Jest, and Supertest
 
 🛠️ Tech Stack
 Backend: Node.js, Express.js, MongoDB, Mongoose
 
 Frontend: React, Tailwind CSS, Axios
+
+Testing: Jest, Supertest, Postman, curl
+
+🧪 Testing
+Automated Testing:
+Comprehensive unit, integration, and API endpoint tests are written using Jest and Supertest to ensure reliability and maintainability of the backend code.
+
+Manual Testing & Documentation:
+All API endpoints are manually tested and documented using Postman and curl, with full API documentation generated via Postman for easy reference.
+
+Coverage Snapshot:
+
+Statements: 86.66%
+
+Branches: 66.66%
+
+Functions: 100%
+
+Lines: 86.66%
+
+How to Run Tests:
+Run all tests and generate a coverage report with:
+
+bash
+cd backend
+npm test
+Then open backend/coverage/lcov-report/index.html for a detailed, file-by-file coverage breakdown.
 
 📝 Getting Started
 1. Clone the Repository
@@ -60,6 +83,7 @@ POST	/api/books	Add a new book
 PUT	/api/books/:id	Edit book info
 DELETE	/api/books/:id	Remove a book
 Sample Book JSON
+
 json
 {
   "title": "Atomic Habits",
@@ -95,5 +119,7 @@ Add screenshots of your app UI here if desired.
 📄 License
 MIT
 
-API Documentation:
-https://documenter.getpostman.com/view/40638998/2sB2xBCpWD
+📑 API Documentation
+API Documentation on Postman
+
+Happy reading and coding!
