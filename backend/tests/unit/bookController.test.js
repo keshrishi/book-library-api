@@ -288,4 +288,38 @@ describe('Book Controller Unit Tests', () => {
     expect(Book.find).toHaveBeenCalled();
     expect(res.json).toHaveBeenCalledWith([]);
   });
+  // tests/unit/bookController.test.js
+it('should handle database error during update', async () => {
+  const bookId = 'valid-id';
+  const updates = { title: 'Updated Title' };
+  
+  // Simulate database error
+  jest.spyOn(mongoose.Types.ObjectId, 'isValid').mockReturnValue(true);
+  Book.findByIdAndUpdate.mockRejectedValue(new Error('Database error'));
+
+  const req = { params: { id: bookId }, body: updates };
+  const res = createMockRes();
+
+  await bookController.updateBook(req, res);
+
+  expect(res.status).toHaveBeenCalledWith(400);
+  expect(res.json).toHaveBeenCalledWith({ message: 'Database error' });
+});
+// tests/unit/bookController.test.js
+it('should handle database error during delete', async () => {
+  const bookId = 'valid-id';
+  
+  // Simulate database error
+  jest.spyOn(mongoose.Types.ObjectId, 'isValid').mockReturnValue(true);
+  Book.findByIdAndDelete.mockRejectedValue(new Error('Database error'));
+
+  const req = { params: { id: bookId } };
+  const res = createMockRes();
+
+  await bookController.deleteBook(req, res);
+
+  expect(res.status).toHaveBeenCalledWith(500);
+  expect(res.json).toHaveBeenCalledWith({ message: 'Database error' });
+});
+
 });
