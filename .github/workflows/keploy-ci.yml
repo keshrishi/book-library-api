@@ -34,50 +34,24 @@ jobs:
           curl --silent -L https://keploy.io/ent/install.sh | bash
           keploy --version
 
-      - name: Debug secrets
-        env:
-          KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
-          APP: ${{ secrets.APP }}
-          BASE_PATH: ${{ secrets.BASE_PATH }}
-          CLOUD: ${{ secrets.CLOUD }}
-        run: |
-          echo "KEPLOY_API_KEY length: ${#KEPLOY_API_KEY}"
-          echo "APP: $APP"
-          echo "BASE_PATH: $BASE_PATH"
-          echo "CLOUD: ${#CLOUD} chars"
-          curl -sSf https://api.keploy.io/health || echo "API connectivity check failed"
-
       - name: Run Keploy Test Suite
         working-directory: ./backend
         env:
-          KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
-          APP: ${{ secrets.APP }}
-          BASE_PATH: ${{ secrets.BASE_PATH }}
-          CLOUD: ${{ secrets.CLOUD }}
           MONGODB_URI: mongodb+srv://rishisinghal8785:NREsqaeQq1qKgdd4@cluster0.dlftb.mongodb.net/Book-Library-API
           PORT: 4000
         run: |
-          # Start server in background
           npm start &
           SERVER_PID=$!
-          
-          # Wait for server to be ready
           echo "Waiting for server to start..."
           sleep 15
-          
-          # Verify server is running
           if curl -sSf http://localhost:4000/api/books; then
             echo "Server is responding"
           else
             echo "Server not responding, checking logs..."
             ps aux | grep node
           fi
-          
-          # Run Keploy with proper flag usage
-          echo "Running Keploy test suite..."
-          keploy test-suite --app="$APP" --base-path="$BASE_PATH" "$CLOUD"
-          
-          # Clean up
+          export KEPLOY_API_KEY=kzE/ZS+M5axEb/XuvQ==
+          keploy test-suite --app=59d91e49-6b71-4d50-9aec-1e7e6afaeadf --base-path=http://localhost:4000/api/books --cloud
           kill $SERVER_PID || true
 
       - name: Upload test report
