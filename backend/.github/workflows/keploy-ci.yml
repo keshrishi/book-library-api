@@ -1,0 +1,51 @@
+name: Keploy API Tests
+
+on: [push, pull_request]
+
+jobs:
+  api-test:
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: npm install
+
+      - name: Install Keploy CLI
+        run: |
+          curl --silent -L https://keploy.io/ent/install.sh | bash
+          keploy version
+
+      - name: Run Keploy Test Suite
+        working-directory: ./backend
+        run: |
+          # Start server in background
+          npm start & 
+          sleep 10 # Wait for server to start
+          
+          # Run Keploy tests with correct syntax
+          export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }}
+          keploy test-suite --app=${{ secrets.APP }} --base-path=${{ secrets.BASE_PATH }} --cloud
+        env:
+          MONGODB_URI: mongodb+srv://rishisinghal8785:NREsqaeQq1qKgdd4@cluster0.dlftb.mongodb.net/Book-Library-API
+          PORT: 4000
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: keploy-report
+          path: ./backend/keploy

@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: Book-Library-API
+  version: 1.0.0
+servers:
+  - url: http://localhost:4000
+paths:
+  /api/books:
+    get:
+      summary: Get all books
+      responses:
+        '200':
+          description: List of books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+        '500':
+          description: Server error
+    post:
+      summary: Add a new book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '201':
+          description: Book created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: Invalid input
+  
+  /api/books/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Update a book
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          description: Book updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: Invalid input
+        '404':
+          description: Book not found
+    delete:
+      summary: Delete a book
+      responses:
+        '200':
+          description: Book deleted
+        '404':
+          description: Book not found
+
+components:
+  schemas:
+    Book:
+      type: object
+      required:
+        - title
+        - author
+      properties:
+        title:
+          type: string
+          example: The Great Gatsby
+        author:
+          type: string
+          example: F. Scott Fitzgerald
+        genre:
+          type: string
+          example: Novel
+        publishedYear:
+          type: integer
+          example: 1925
+        rating:
+          type: number
+          format: float
+          example: 4.8
