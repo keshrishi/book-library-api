@@ -10,6 +10,11 @@ jobs:
         image: mongo:latest
         ports:
           - 27017:27017
+        options: >-
+          --health-cmd "echo 'db.runCommand(\"ping\").ok' | mongosh localhost:27017/test --quiet"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout code
@@ -29,6 +34,18 @@ jobs:
           curl --silent -L https://keploy.io/ent/install.sh | bash
           keploy --version
 
+      - name: Debug secrets
+        env:
+          KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
+          APP: ${{ secrets.APP }}
+          BASE_PATH: ${{ secrets.BASE_PATH }}
+        run: |
+          echo "KEPLOY_API_KEY length: ${#KEPLOY_API_KEY}"
+          echo "APP: $APP"
+          echo "BASE_PATH: $BASE_PATH"
+          echo "Testing Keploy API connectivity..."
+          curl -sSf https://api.keploy.io/health || echo "API connectivity check failed"
+
       - name: Run Keploy Test Suite
         working-directory: ./backend
         env:
@@ -38,9 +55,28 @@ jobs:
           MONGODB_URI: mongodb+srv://rishisinghal8785:NREsqaeQq1qKgdd4@cluster0.dlftb.mongodb.net/Book-Library-API
           PORT: 4000
         run: |
+          # Start server in background
           npm start &
-          sleep 15  # Increased sleep for server startup
-          keploy test-suite --app=$APP --base-path=$BASE_PATH --cloud
+          SERVER_PID=$!
+          
+          # Wait for server to be ready
+          echo "Waiting for server to start..."
+          sleep 15
+          
+          # Verify server is running
+          if curl -sSf http://localhost:4000/api/books; then
+            echo "Server is responding"
+          else
+            echo "Server not responding, checking logs..."
+            ps aux | grep node
+          fi
+          
+          # Run Keploy with proper flag usage
+          echo "Running Keploy test suite..."
+          keploy test-suite --app="$APP" --base-path="$BASE_PATH" ${{ secrets.CLOUD }}
+          
+          # Clean up
+          kill $SERVER_PID || true
 
       - name: Upload test report
         if: always()
@@ -48,3 +84,4 @@ jobs:
         with:
           name: keploy-report
           path: ./backend/keploy
+          retention-days: 30
