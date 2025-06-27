@@ -39,11 +39,12 @@ jobs:
           KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
           APP: ${{ secrets.APP }}
           BASE_PATH: ${{ secrets.BASE_PATH }}
+          CLOUD: ${{ secrets.CLOUD }}
         run: |
           echo "KEPLOY_API_KEY length: ${#KEPLOY_API_KEY}"
           echo "APP: $APP"
           echo "BASE_PATH: $BASE_PATH"
-          echo "Testing Keploy API connectivity..."
+          echo "CLOUD: ${#CLOUD} chars"
           curl -sSf https://api.keploy.io/health || echo "API connectivity check failed"
 
       - name: Run Keploy Test Suite
@@ -52,6 +53,7 @@ jobs:
           KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
           APP: ${{ secrets.APP }}
           BASE_PATH: ${{ secrets.BASE_PATH }}
+          CLOUD: ${{ secrets.CLOUD }}
           MONGODB_URI: mongodb+srv://rishisinghal8785:NREsqaeQq1qKgdd4@cluster0.dlftb.mongodb.net/Book-Library-API
           PORT: 4000
         run: |
@@ -73,7 +75,7 @@ jobs:
           
           # Run Keploy with proper flag usage
           echo "Running Keploy test suite..."
-          keploy test-suite --app="$APP" --base-path="$BASE_PATH" ${{ secrets.CLOUD }}
+          keploy test-suite --app="$APP" --base-path="$BASE_PATH" "$CLOUD"
           
           # Clean up
           kill $SERVER_PID || true
