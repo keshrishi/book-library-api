@@ -31,17 +31,16 @@ jobs:
 
       - name: Run Keploy Test Suite
         working-directory: ./backend
-        run: |
-          # Start server in background
-          npm start & 
-          sleep 10 # Wait for server to start
-          
-          # Run Keploy tests with correct syntax
-          export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }}
-          keploy test-suite --app=${{ secrets.APP }} --base-path=${{ secrets.BASE_PATH }} --cloud
         env:
+          KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
+          APP: ${{ secrets.APP }}
+          BASE_PATH: ${{ secrets.BASE_PATH }}
           MONGODB_URI: mongodb+srv://rishisinghal8785:NREsqaeQq1qKgdd4@cluster0.dlftb.mongodb.net/Book-Library-API
           PORT: 4000
+        run: |
+          npm start &
+          sleep 15  # Increased sleep for server startup
+          keploy test-suite --app=$APP --base-path=$BASE_PATH --cloud
 
       - name: Upload test report
         if: always()
