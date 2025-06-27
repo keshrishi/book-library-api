@@ -1,4 +1,3 @@
-
 name: Keploy API Tests
 
 on: [push, pull_request]
@@ -28,7 +27,7 @@ jobs:
       - name: Install Keploy CLI
         run: |
           curl --silent -L https://keploy.io/ent/install.sh | bash
-          keploy version
+          keploy --version
 
       - name: Run Keploy Test Suite
         working-directory: ./backend
@@ -37,16 +36,16 @@ jobs:
           npm start & 
           sleep 10 # Wait for server to start
           
-          # Run Keploy tests
+          # Run Keploy tests with correct syntax
           export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }}
-          keploy test-suite app=YOUR_APP_ID base_path http://localhost:4000 cloud
+          keploy test-suite --app=${{ secrets.APP }} --base-path=${{ secrets.BASE_PATH }} --cloud
         env:
           MONGODB_URI: mongodb+srv://rishisinghal8785:NREsqaeQq1qKgdd4@cluster0.dlftb.mongodb.net/Book-Library-API
           PORT: 4000
 
       - name: Upload test report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: keploy-report
           path: ./backend/keploy
