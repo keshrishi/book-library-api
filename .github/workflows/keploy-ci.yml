@@ -39,6 +39,9 @@ jobs:
         env:
           MONGODB_URI: mongodb+srv://rishisinghal8785:NREsqaeQq1qKgdd4@cluster0.dlftb.mongodb.net/Book-Library-API
           PORT: 4000
+          KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
+          APP: ${{ secrets.APP }}
+          BASE_PATH: ${{ secrets.BASE_PATH }}
         run: |
           npm start &
           SERVER_PID=$!
@@ -50,8 +53,7 @@ jobs:
             echo "Server not responding, checking logs..."
             ps aux | grep node
           fi
-          export KEPLOY_API_KEY=kzE/ZS+M5axEb/XuvQ==
-          keploy test-suite --app=59d91e49-6b71-4d50-9aec-1e7e6afaeadf --base-path=http://localhost:4000/api/books --cloud
+          keploy test-suite --app="$APP" --base-path="$BASE_PATH" --cloud
           kill $SERVER_PID || true
 
       - name: Upload test report
