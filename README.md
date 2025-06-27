@@ -44,6 +44,17 @@ bash
 cd backend
 npm test
 # Then open backend/coverage/lcov-report/index.html for a detailed, file-by-file coverage breakdown.
+🧪 Keploy API Test Report
+Below is a snapshot from the Keploy dashboard showing all API tests passing with zero failures:
+
+Keploy Test Report
+
+All test runs are marked as COMPLETED.
+
+88/88 and 75/75 tests passed in the latest runs.
+
+No failed tests across all recent executions.
+
 📝 Getting Started
 1. Clone the Repository
 bash
@@ -108,9 +119,9 @@ Delete a book
 bash
 curl -X DELETE http://localhost:4000/api/books/<book_id>
 🖼️ Screenshots
-![Keploy Test Report](keploy-test-report.png
+Add screenshots of your app UI here if desired.
 
+📄 License
 MIT
 
-📑 API Documentation
-API Documentation on Postman:- https://documenter.getpostman.com/view/40638998/2sB2xBCpWD
+📑 API Documentation:- https://documenter.getpostman.com/view/40638998/2sB2xBCpWD
