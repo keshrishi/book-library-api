@@ -43,8 +43,7 @@ Run all tests and generate a coverage report with:
 bash
 cd backend
 npm test
-Then open backend/coverage/lcov-report/index.html for a detailed, file-by-file coverage breakdown.
-
+# Then open backend/coverage/lcov-report/index.html for a detailed, file-by-file coverage breakdown.
 📝 Getting Started
 1. Clone the Repository
 bash
@@ -83,7 +82,6 @@ POST	/api/books	Add a new book
 PUT	/api/books/:id	Edit book info
 DELETE	/api/books/:id	Remove a book
 Sample Book JSON
-
 json
 {
   "title": "Atomic Habits",
@@ -94,29 +92,25 @@ json
 }
 🧪 Testing the API with curl
 Get all books
-
 bash
 curl http://localhost:4000/api/books
 Add a new book
-
 bash
 curl -X POST http://localhost:4000/api/books \
 -H "Content-Type: application/json" \
 -d '{"title":"Atomic Habits","author":"James Clear","genre":"Self-help","publishedYear":2018,"rating":4.6}'
 Edit a book
-
 bash
 curl -X PUT http://localhost:4000/api/books/<book_id> \
 -H "Content-Type: application/json" \
 -d '{"title":"Atomic Habits (Updated)","author":"James Clear","genre":"Self-help","publishedYear":2018,"rating":4.8}'
 Delete a book
-
 bash
 curl -X DELETE http://localhost:4000/api/books/<book_id>
 🖼️ Screenshots
-Add screenshots of your app UI here if desired.
+![Keploy Test Report](keploy-test-report.png
 
-📄 License
 MIT
 
-📑 API Documentation :- https://documenter.getpostman.com/view/40638998/2sB2xBCpWD
+📑 API Documentation
+API Documentation on Postman:- https://documenter.getpostman.com/view/40638998/2sB2xBCpWD
